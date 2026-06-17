@@ -655,7 +655,7 @@ textarea{resize:vertical;min-height:80px}
               <div><div style="font-size:9px;color:var(--text3);text-transform:uppercase">Booth</div><div style="font-size:12px;margin-top:2px">Booth 12, Ward 2</div></div>
               <div><div style="font-size:9px;color:var(--text3);text-transform:uppercase">Part No.</div><div style="font-size:12px;margin-top:2px">Part 8, Sl. 247</div></div>
             </div>
-            <div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">🖨 Print Slip</button><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">✏ Edit</button><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">📧 Send SMS</button></div>
+            <div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px" onclick="window.open('VoterSlip.pdf', '_blank')">🖨 Print Slip</button><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">✏ Edit</button><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">📧 Send SMS</button></div>
           </div>
         </div>
         <div class="card">
@@ -668,7 +668,7 @@ textarea{resize:vertical;min-height:80px}
             </div>
             <div class="form-group"><label>Slip Language</label><select><option>English + Hindi</option><option>English Only</option><option>Hindi Only</option><option>Punjabi + English</option></select></div>
             <div class="form-group"><label>Print Format</label><select><option>A4 (4 per page)</option><option>A5 (2 per page)</option><option>Individual Slip</option></select></div>
-            <button class="btn btn-primary">🖨 Generate Slips (PDF)</button>
+            <button class="btn btn-primary" onclick="window.open('VoterSlipBulk.pdf', '_blank')">🖨 Generate Slips (PDF)</button>
           </div>
           <hr class="divider">
           <div class="card-title"><span class="ct-icon">📊</span> Roll Statistics</div>
