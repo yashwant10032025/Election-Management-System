@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMS – State Election Commission Chandigarh</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#f4f7f6;
+  --navy2:#ffffff;
+  --navy3:#f8f9fa;
+  --navy4:#e2e8f0;
+  --accent:#2563eb;
+  --accent2:#1d4ed8;
+  --teal:#059669;
+  --coral:#dc2626;
+  --sky:#0284c7;
+  --muted:#94a3b8;
+  --border:rgba(0,0,0,0.08);
+  --border2:rgba(0,0,0,0.14);
+  --text:#0f172a;
+  --text2:#334155;
+  --text3:#64748b;
+  --card:#ffffff;
+  --card2:#f8f9fa;
+  --pill-r:6px;
+  --r:10px;
+  --r2:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Public Sans',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;display:flex;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:240px;min-width:240px;background:var(--navy2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;z-index:10}
+.sidebar-brand{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
+.brand-badge{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:var(--navy);font-family:'Public Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:4px;margin-bottom:10px}
+.brand-title{font-family:'Public Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);line-height:1.2}
+.brand-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:10px 0}
+.sidebar-nav::-webkit-scrollbar{width:4px}
+.sidebar-nav::-webkit-scrollbar-thumb{background:var(--navy4);border-radius:2px}
+.nav-section{padding:14px 18px 5px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 18px;cursor:pointer;transition:background .15s,color .15s;color:var(--text2);font-size:12.5px;position:relative}
+.nav-item:hover{background:rgba(0,0,0,0.04);color:var(--text)}
+.nav-item.active{background:rgba(37,99,235,0.1);color:var(--accent)}
+.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);border-radius:0 2px 2px 0}
+.nav-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:var(--pill-r);background:rgba(0,0,0,0.05);font-size:13px;flex-shrink:0}
+.nav-item.active .nav-icon{background:rgba(37,99,235,0.15)}
+.nav-num{font-family:'Roboto Mono',monospace;font-size:9px;margin-left:auto;color:var(--text3);background:rgba(0,0,0,0.06);padding:2px 5px;border-radius:3px}
+.sidebar-footer{padding:14px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)}
+.footer-user{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:var(--navy);flex-shrink:0}
+
+/* MAIN */
+.main{flex:1;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.main::-webkit-scrollbar{width:5px}
+.main::-webkit-scrollbar-thumb{background:var(--navy4);border-radius:3px}
+.topbar{display:flex;align-items:center;gap:14px;padding:14px 28px;background:var(--navy2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}
+.page-title{font-family:'Public Sans',sans-serif;font-size:17px;font-weight:700;color:var(--text);flex:1}
+.page-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--pill-r);border:none;cursor:pointer;font-family:'Public Sans',sans-serif;font-size:12px;font-weight:500;transition:all .15s}
+.btn-primary{background:var(--accent);color:var(--navy)}
+.btn-primary:hover{background:var(--accent2)}
+.btn-ghost{background:rgba(0,0,0,0.06);color:var(--text2);border:1px solid var(--border2)}
+.btn-ghost:hover{background:rgba(0,0,0,0.1);color:var(--text)}
+.btn-danger{background:rgba(240,90,64,0.15);color:var(--coral);border:1px solid rgba(240,90,64,0.3)}
+.page-content{padding:24px 28px;flex:1}
+
+/* MODULE PAGES */
+.page{display:none}
+.page.active{display:block}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px 22px}
+.card-sm{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px}
+.card-title{font-family:'Public Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title .ct-icon{font-size:15px;color:var(--accent)}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden}
+.stat::after{content:'';position:absolute;right:-10px;top:-10px;width:60px;height:60px;border-radius:50%;background:rgba(0,0,0,0.02)}
+.stat-val{font-family:'Public Sans',sans-serif;font-size:26px;font-weight:700;color:var(--text);line-height:1}
+.stat-lbl{font-size:11px;color:var(--text3);margin-top:4px}
+.stat-badge{display:inline-flex;align-items:center;font-size:10px;padding:2px 7px;border-radius:99px;margin-top:6px}
+.up{background:rgba(46,201,160,0.15);color:var(--teal)}
+.down{background:rgba(240,90,64,0.15);color:var(--coral)}
+.neutral{background:rgba(37,99,235,0.15);color:var(--accent)}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead th{background:var(--navy3);padding:10px 14px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+tbody tr{border-top:1px solid var(--border)}
+tbody tr:hover{background:rgba(0,0,0,0.02)}
+tbody td{padding:10px 14px;color:var(--text2);vertical-align:middle}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:500;padding:3px 9px;border-radius:99px}
+.badge-green{background:rgba(46,201,160,0.15);color:var(--teal)}
+.badge-red{background:rgba(240,90,64,0.15);color:var(--coral)}
+.badge-amber{background:rgba(37,99,235,0.15);color:var(--accent)}
+.badge-sky{background:rgba(74,179,232,0.15);color:var(--sky)}
+.badge-muted{background:rgba(0,0,0,0.06);color:var(--text3)}
+
+/* FORM */
+.form-grid{display:grid;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+label{font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.04em;text-transform:uppercase}
+input,select,textarea{background:var(--navy3);border:1px solid var(--border2);border-radius:var(--pill-r);padding:9px 12px;color:var(--text);font-family:'Public Sans',sans-serif;font-size:13px;outline:none;transition:border .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
+select option{background:var(--navy2)}
+textarea{resize:vertical;min-height:80px}
+
+/* PROGRESS */
+.progress-bar{height:6px;background:rgba(0,0,0,0.06);border-radius:99px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:99px;transition:width .6s ease}
+
+/* GRID LAYOUTS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:var(--border2)}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-dot{position:absolute;left:-20px;top:3px;width:10px;height:10px;border-radius:50%;border:2px solid var(--navy2)}
+.tl-time{font-size:10px;color:var(--text3);font-family:'Roboto Mono',monospace;margin-bottom:3px}
+.tl-text{font-size:12.5px;color:var(--text2)}
+
+/* CHARTS */
+.bar-group{display:flex;flex-direction:column;gap:10px}
+.bar-item{display:flex;align-items:center;gap:10px}
+.bar-label{font-size:11px;color:var(--text3);width:100px;flex-shrink:0;text-align:right}
+.bar-track{flex:1;height:8px;background:rgba(0,0,0,0.05);border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;border-radius:99px}
+.bar-val{font-size:11px;font-family:'Roboto Mono',monospace;color:var(--text2);width:36px;text-align:right}
+
+/* TABS */
+.tabs{display:flex;gap:2px;background:rgba(0,0,0,0.04);border-radius:var(--r);padding:3px;margin-bottom:18px;width:fit-content}
+.tab{padding:7px 16px;border-radius:var(--pill-r);font-size:12px;cursor:pointer;color:var(--text3);transition:all .15s}
+.tab.active{background:var(--card2);color:var(--text);font-weight:500}
+
+/* STATUS INDICATORS */
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}
+.dot-green{background:var(--teal)}
+.dot-red{background:var(--coral)}
+.dot-amber{background:var(--accent)}
+.dot-sky{background:var(--sky)}
+
+/* SEARCH BAR */
+.search-bar{display:flex;align-items:center;gap:10px;background:var(--navy3);border:1px solid var(--border2);border-radius:var(--r);padding:8px 14px;margin-bottom:16px}
+.search-bar input{background:transparent;border:none;padding:0;flex:1;font-size:13px}
+.search-icon{color:var(--text3);font-size:14px}
+
+/* MAP PLACEHOLDER */
+.map-placeholder{background:var(--navy3);border:1px solid var(--border);border-radius:var(--r);height:220px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--text3);font-size:13px;position:relative;overflow:hidden}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:30px 30px}
+.map-pins{position:absolute;inset:0}
+
+/* NOTIFICATION BUBBLE */
+.notif{width:16px;height:16px;background:var(--coral);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--text)}
+
+/* LIVE INDICATOR */
+.live-dot{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--teal);font-weight:500}
+.live-dot::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+
+/* SCROLLABLE LIST */
+.item-list{display:flex;flex-direction:column;gap:1px}
+.list-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--navy3);border-radius:var(--pill-r);font-size:12.5px;color:var(--text2);cursor:pointer;transition:background .12s}
+.list-item:hover{background:var(--navy4)}
+.list-item-icon{width:32px;height:32px;border-radius:var(--pill-r);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+
+/* COMPLAINT CARD */
+.complaint-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
+.complaint-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.complaint-id{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--text3)}
+.complaint-text{font-size:12.5px;color:var(--text2);line-height:1.5;margin-bottom:8px}
+.complaint-meta{display:flex;align-items:center;gap:12px;font-size:10px;color:var(--text3)}
+
+/* TURNOUT METER */
+.turnout-ring{width:120px;height:120px;position:relative;flex-shrink:0}
+.turnout-ring svg{transform:rotate(-90deg)}
+.turnout-val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Public Sans',sans-serif;font-size:22px;font-weight:700;color:var(--text);line-height:1}
+.turnout-val span{font-family:'Public Sans',sans-serif;font-size:9px;color:var(--text3);font-weight:400}
+
+/* RESULT BAR */
+.result-candidate{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.candidate-info{flex:1}
+.candidate-name{font-size:13px;font-weight:500;color:var(--text)}
+.candidate-party{font-size:10px;color:var(--text3)}
+.result-votes{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--accent);font-weight:500;width:70px;text-align:right;flex-shrink:0}
+
+/* UTILITY */
+.mb-4{margin-bottom:4px}.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}.mb-20{margin-bottom:20px}.mb-24{margin-bottom:24px}
+.mt-4{margin-top:4px}.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}
+.flex{display:flex}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-8{gap:8px}.gap-12{gap:12px}.gap-16{gap:16px}
+.text-accent{color:var(--accent)}.text-teal{color:var(--teal)}.text-coral{color:var(--coral)}.text-sky{color:var(--sky)}.text-muted{color:var(--text3)}
+.font-mono{font-family:'Roboto Mono',monospace}.font-syne{font-family:'Public Sans',sans-serif}
+.w-full{width:100%}.divider{border:none;border-top:1px solid var(--border);margin:16px 0}
+
+/* ANIMATE IN */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.page.active .page-content > *{animation:fadeUp .25s ease both}
+.page.active .page-content > *:nth-child(2){animation-delay:.05s}
+.page.active .page-content > *:nth-child(3){animation-delay:.1s}
+.page.active .page-content > *:nth-child(4){animation-delay:.15s}
+
+/* FORM SECTION TITLE */
+.section-hdr{font-family:'Public Sans',sans-serif;font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.04em;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* EVM MOVEMENT */
+.movement-step{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.step-num{width:26px;height:26px;border-radius:50%;background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.3);display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-size:10px;color:var(--accent);flex-shrink:0}
+
+/* DONUT LEGEND */
+.donut-legend{display:flex;flex-direction:column;gap:8px;flex:1}
+.legend-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.legend-color{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.legend-val{margin-left:auto;font-family:'Roboto Mono',monospace;font-size:11px;color:var(--text3)}
+
+/* POSTAL */
+.postal-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:14px}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:6px}
+.check-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--navy3);border-radius:var(--pill-r)}
+.check-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+.check-label{font-size:12.5px;color:var(--text2);flex:1}
+.check-status{font-size:10px}
+
+/* TOPBAR MODULE LABEL */
+.mod-tag{display:flex;align-items:center;gap:6px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.2);border-radius:4px;padding:4px 10px;font-size:10px;font-weight:600;letter-spacing:.05em;color:var(--accent)}
+
+/* OBSERVER */
+.observer-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
+
+/* AMF FACILITY */
+.facility-item{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:10px 12px;background:var(--navy3);border-radius:var(--pill-r);margin-bottom:6px}
+
+/* AFFIDAVIT */
+.affidavit-row{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--navy3);border-radius:var(--r);margin-bottom:8px}
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+   <div class="brand-badge">🗳 SEC</div>
+    <div class="brand-title">Election Management System</div>
+    <div class="brand-sub">U.T. Chandigarh · 2026</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" onclick="showPage('dashboard')">
+      <div class="nav-icon">⌂</div> Dashboard <span class="nav-num">00</span>
+    </div>
+    <div class="nav-section">Core Election</div>
+    <div class="nav-item" onclick="showPage('evm')">
+      <div class="nav-icon">🖥</div> EVM Management <span class="nav-num">01</span>
+    </div>
+    <div class="nav-item" onclick="showPage('rolls')">
+      <div class="nav-icon">📋</div> Electoral Rolls <span class="nav-num">04</span>
+    </div>
+    <div class="nav-item" onclick="showPage('randomization')">
+      <div class="nav-icon">🔀</div> Randomization <span class="nav-num">13</span>
+    </div>
+    <div class="nav-section">Field Operations</div>
+    <div class="nav-item" onclick="showPage('polling-party')">
+      <div class="nav-icon">👥</div> Polling Party <span class="nav-num">02</span>
+    </div>
+    <div class="nav-item" onclick="showPage('polling-station')">
+      <div class="nav-icon">🏛</div> Polling Station <span class="nav-num">03</span>
+    </div>
+    <div class="nav-item" onclick="showPage('postal')">
+      <div class="nav-icon">✉</div> Postal Ballot <span class="nav-num">10</span>
+    </div>
+    <div class="nav-item" onclick="showPage('voter-slip')">
+      <div class="nav-icon">🎫</div> Voter Slip Dist. <span class="nav-num">12</span>
+    </div>
+    <div class="nav-item" onclick="showPage('pwd')">
+      <div class="nav-icon">♿</div> 85+ & PWD <span class="nav-num">16</span>
+    </div>
+    <div class="nav-item" onclick="showPage('amf')">
+      <div class="nav-icon">✅</div> Min. Facilities <span class="nav-num">17</span>
+    </div>
+    <div class="nav-section">Compliance & Legal</div>
+    <div class="nav-item" onclick="showPage('nominations')">
+      <div class="nav-icon">📝</div> Nominations <span class="nav-num">07</span>
+    </div>
+    <div class="nav-item" onclick="showPage('mcc')">
+      <div class="nav-icon">🛡</div> MCC Reports <span class="nav-num">11</span>
+    </div>
+    <div class="nav-item" onclick="showPage('statutory')">
+      <div class="nav-icon">📁</div> Statutory Forms <span class="nav-num">14</span>
+    </div>
+    <div class="nav-item" onclick="showPage('affidavit')">
+      <div class="nav-icon">📜</div> Affidavit Analysis <span class="nav-num">18</span>
+    </div>
+    <div class="nav-section">Digital Services</div>
+    <div class="nav-item" onclick="showPage('complaints')">
+      <div class="nav-icon">💬</div> Complaints <span class="nav-num">05</span>
+      <div class="notif">3</div>
+    </div>
+    <div class="nav-item" onclick="showPage('permissions')">
+      <div class="nav-icon">🔑</div> Permissions <span class="nav-num">06</span>
+    </div>
+    <div class="nav-section">Reporting</div>
+    <div class="nav-item" onclick="showPage('turnout')">
+      <div class="nav-icon">📊</div> Voter Turnout <span class="nav-num">08</span>
+    </div>
+    <div class="nav-item" onclick="showPage('results')">
+      <div class="nav-icon">🏆</div> Online Results <span class="nav-num">09</span>
+    </div>
+    <div class="nav-item" onclick="showPage('observer')">
+      <div class="nav-icon">👁</div> Observer Reports <span class="nav-num">15</span>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="footer-user">
+      <div class="avatar">RO</div>
+      <div>
+        <div style="font-size:12px;color:var(--text);font-weight:500">Returning Officer</div>
+        <div style="font-size:10px;color:var(--text3)">Chandigarh Central</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost" style="flex:1;font-size:11px;padding:5px 8px">Settings</button>
+      <button class="btn btn-ghost" style="flex:1;font-size:11px;padding:5px 8px">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="mainArea">
+
+  <!-- ===== PAGE 00: DASHBOARD ===== -->
+  <div class="page active" id="page-dashboard">
+    <div class="topbar">
+      <div>
+        <div class="page-title">Command Dashboard</div>
+        <div class="page-sub">Real-time election overview · Chandigarh State Election Commission 2026</div>
+      </div>
+      <div class="topbar-actions">
+        <span class="live-dot">LIVE</span>
+        <!--<button class="btn btn-ghost">⬇ Export</button>
+        <button class="btn btn-primary">+ Quick Add</button>-->
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+	  <div class="stat">
+          <div class="stat-val">614</div>
+          <div class="stat-lbl">Polling Stations</div>
+          <div class="stat-badge neutral">Spread across 209 locations</div>
+        </div>
+		<div class="stat">
+          <div class="stat-val">6,59,805</div>
+          <div class="stat-lbl">Registered Voters</div>
+          <div class="stat-badge up">Male: 3.41L | Female: 3.18L</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">38</div>
+          <div class="stat-lbl">Total Wards</div>
+          <div class="stat-badge up">Municipal Corporation</div>
+        </div>
+        
+        
+        <div class="stat">
+          <div class="stat-val">67.98%</div>
+          <div class="stat-lbl">2024 Turnout</div>
+          <div class="stat-badge neutral">Lok Sabha Election</div>
+        </div>
+      </div>
+      <div class="grid-2 mb-16">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📊</span> Voter Turnout – Live</div>
+          <div style="display:flex;align-items:center;gap:20px">
+            <div class="turnout-ring">
+              <svg width="120" height="120" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="12"/>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#e8c547" stroke-width="12" stroke-dasharray="314" stroke-dashoffset="157" stroke-linecap="round"/>
+              </svg>
+              <div class="turnout-val">62.4%<span>Turnout</span></div>
+            </div>
+            <div style="flex:1">
+              <div class="bar-group">
+                <div class="bar-item"><div class="bar-label">Ward 1</div><div class="bar-track"><div class="bar-fill" style="width:71%;background:var(--teal)"></div></div><div class="bar-val">71%</div></div>
+                <div class="bar-item"><div class="bar-label">Ward 2</div><div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--sky)"></div></div><div class="bar-val">58%</div></div>
+                <div class="bar-item"><div class="bar-label">Ward 3</div><div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--accent)"></div></div><div class="bar-val">65%</div></div>
+                <div class="bar-item"><div class="bar-label">Ward 4</div><div class="bar-track"><div class="bar-fill" style="width:48%;background:var(--coral)"></div></div><div class="bar-val">48%</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🔔</span> Recent Activity</div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-dot" style="background:var(--teal)"></div><div class="tl-time">10:42 AM</div><div class="tl-text">EVM #0847 dispatched to Booth 34, Sector 12</div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:var(--accent)"></div><div class="tl-time">10:31 AM</div><div class="tl-text">Complaint #CHD-0291 resolved by District Officer</div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:var(--sky)"></div><div class="tl-time">10:15 AM</div><div class="tl-text">Postal ballot batch #14 dispatched – 280 units</div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:var(--coral)"></div><div class="tl-time">09:58 AM</div><div class="tl-text">New permission request – political rally, Sector 22</div></div>
+            <div class="tl-item"><div class="tl-dot" style="background:var(--teal)"></div><div class="tl-time">09:44 AM</div><div class="tl-text">Observer Report submitted for AC-12 Ward</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card-sm">
+          <div class="card-title"><span class="ct-icon">🚨</span> Pending Complaints</div>
+          <div style="font-family:'Public Sans',sans-serif;font-size:32px;font-weight:700;color:var(--coral)">3</div>
+          <div style="font-size:11px;color:var(--text3)">Awaiting resolution</div>
+          <button class="btn btn-ghost mt-12 w-full" onclick="showPage('complaints')">View All →</button>
+        </div>
+        <div class="card-sm">
+          <div class="card-title"><span class="ct-icon">📋</span> EVM Status</div>
+          <div class="donut-legend">
+            <div class="legend-row"><div class="legend-color" style="background:var(--teal)"></div>Deployed<div class="legend-val">847</div></div>
+            <div class="legend-row"><div class="legend-color" style="background:var(--accent)"></div>In Warehouse<div class="legend-val">312</div></div>
+            <div class="legend-row"><div class="legend-color" style="background:var(--coral)"></div>Defective<div class="legend-val">22</div></div>
+          </div>
+        </div>
+        <div class="card-sm">
+          <div class="card-title"><span class="ct-icon">📮</span> Postal Ballots</div>
+          <div class="donut-legend">
+            <div class="legend-row"><div class="legend-color" style="background:var(--sky)"></div>Issued<div class="legend-val">1,840</div></div>
+            <div class="legend-row"><div class="legend-color" style="background:var(--teal)"></div>Returned<div class="legend-val">1,204</div></div>
+            <div class="legend-row"><div class="legend-color" style="background:var(--coral)"></div>Pending<div class="legend-val">636</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 01: EVM MANAGEMENT ===== -->
+  <div class="page" id="page-evm">
+    <div class="topbar">
+      <div>
+        <div class="page-title">EVM Management</div>
+        <div class="page-sub">FLC, movement tracking & commissioning</div>
+      </div>
+      <div class="topbar-actions">
+        <span class="mod-tag">MODULE 01</span>
+        <button class="btn btn-ghost">⬇ Export</button>
+        <button class="btn btn-primary">+ Register EVM</button>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">1,247</div><div class="stat-lbl">Total EVMs</div><div class="stat-badge up">All Accounted</div></div>
+        <div class="stat"><div class="stat-val">847</div><div class="stat-lbl">Deployed</div><div class="stat-badge up">Operational</div></div>
+        <div class="stat"><div class="stat-val">22</div><div class="stat-lbl">Defective</div><div class="stat-badge down">Under Repair</div></div>
+        <div class="stat"><div class="stat-val">312</div><div class="stat-lbl">In Warehouse</div><div class="stat-badge neutral">FLC Complete</div></div>
+      </div>
+      <div class="tabs">
+        <div class="tab active">EVM Inventory</div>
+        <div class="tab">FLC Status</div>
+        <div class="tab">Movement Log</div>
+        <div class="tab">Commissioning</div>
+      </div>
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search by EVM serial number, booth, or ward…">
+        <select style="width:140px"><option>All Status</option><option>Deployed</option><option>Warehouse</option><option>Defective</option></select>
+        <select style="width:130px"><option>All Wards</option><option>Ward 1</option><option>Ward 2</option><option>Ward 3</option></select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>EVM Serial</th><th>Type</th><th>Ward</th><th>Booth No.</th><th>FLC Status</th><th>Current Location</th><th>Last Movement</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td class="font-mono text-accent">BU-0847-CHD</td><td>BU+CU+VVPAT</td><td>Ward 1</td><td>Booth 34</td><td><span class="badge badge-green">✓ FLC Done</span></td><td>Sector 12 Strong Room</td><td>10:42 AM Today</td><td><span class="badge badge-green"><span class="dot dot-green"></span>Deployed</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Track</button></td></tr>
+            <tr><td class="font-mono text-accent">BU-0312-CHD</td><td>BU+CU</td><td>Ward 2</td><td>Booth 12</td><td><span class="badge badge-green">✓ FLC Done</span></td><td>Central Warehouse</td><td>Yesterday 4PM</td><td><span class="badge badge-amber"><span class="dot dot-amber"></span>Standby</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Track</button></td></tr>
+            <tr><td class="font-mono text-accent">BU-0094-CHD</td><td>BU+CU+VVPAT</td><td>Ward 3</td><td>Booth 07</td><td><span class="badge badge-red">✗ Pending</span></td><td>Workshop Bay 3</td><td>2 days ago</td><td><span class="badge badge-red"><span class="dot dot-red"></span>Defective</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Track</button></td></tr>
+            <tr><td class="font-mono text-accent">BU-1102-CHD</td><td>BU+CU+VVPAT</td><td>Ward 4</td><td>Booth 21</td><td><span class="badge badge-green">✓ FLC Done</span></td><td>Booth 21, Sector 28</td><td>08:00 AM Today</td><td><span class="badge badge-green"><span class="dot dot-green"></span>Deployed</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Track</button></td></tr>
+            <tr><td class="font-mono text-accent">BU-0519-CHD</td><td>BU only</td><td>Ward 1</td><td>Booth 09</td><td><span class="badge badge-amber">In Progress</span></td><td>FLC Centre</td><td>09:15 AM Today</td><td><span class="badge badge-sky"><span class="dot dot-sky"></span>FLC Queue</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Track</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid-2 mt-16">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🗺</span> Movement Tracking</div>
+          <div class="map-placeholder">
+            <div class="map-grid"></div>
+            <div style="z-index:1;text-align:center">
+              <div style="font-size:24px">📍</div>
+              <div>GIS Map – EVM Location Tracking</div>
+              <div style="font-size:11px;margin-top:4px">Integration with NIC GIS Portal</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🔄</span> Log Movement</div>
+          <div class="form-grid">
+            <div class="form-group"><label>EVM Serial Number</label><input type="text" placeholder="e.g. BU-0847-CHD"></div>
+            <div class="form-row">
+              <div class="form-group"><label>From Location</label><input type="text" placeholder="Warehouse / Booth"></div>
+              <div class="form-group"><label>To Location</label><input type="text" placeholder="Destination"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Movement Date & Time</label><input type="datetime-local"></div>
+              <div class="form-group"><label>Authorized By</label><input type="text" placeholder="Officer Name"></div>
+            </div>
+            <div class="form-group"><label>Remarks</label><textarea placeholder="Any observations or notes…"></textarea></div>
+            <button class="btn btn-primary">Log Movement</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 02: POLLING PARTY ===== -->
+  <div class="page" id="page-polling-party">
+    <div class="topbar">
+      <div><div class="page-title">Polling Party Management</div><div class="page-sub">Data collection, distribution & duty allocation</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 02</span><button class="btn btn-ghost">⬇ Roster PDF</button><button class="btn btn-primary">+ Add Officer</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">2,568</div><div class="stat-lbl">Officers Enrolled</div><div class="stat-badge up">Data Collected</div></div>
+        <div class="stat"><div class="stat-val">642</div><div class="stat-lbl">Teams Formed</div><div class="stat-badge up">4 per Booth</div></div>
+        <div class="stat"><div class="stat-val">98.4%</div><div class="stat-lbl">Allocation Done</div><div class="stat-badge neutral">41 Pending</div></div>
+        <div class="stat"><div class="stat-val">284</div><div class="stat-lbl">Training Complete</div><div class="stat-badge down">358 Remaining</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">👤</span> Officer Data Collection Form</div>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="form-group"><label>Officer Name</label><input type="text" placeholder="Full Name"></div>
+              <div class="form-group"><label>Employee ID</label><input type="text" placeholder="Govt. Employee ID"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Department</label><select><option>-- Select --</option><option>Revenue</option><option>Police</option><option>Education</option><option>Health</option><option>Municipal</option></select></div>
+              <div class="form-group"><label>Designation</label><input type="text" placeholder="e.g. Naib Tehsildar"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Mobile Number</label><input type="tel" placeholder="10-digit mobile"></div>
+              <div class="form-group"><label>Role in Polling Party</label><select><option>-- Select --</option><option>Presiding Officer</option><option>Polling Officer 1</option><option>Polling Officer 2</option><option>Polling Officer 3</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Booth Preference Zone</label><select><option>No Preference</option><option>Home Zone</option><option>Away Zone</option></select></div>
+              <div class="form-group"><label>Special Skills</label><select><option>None</option><option>EVM Trained</option><option>PWD Assist</option><option>Language Expert</option></select></div>
+            </div>
+            <button class="btn btn-primary">Save Officer Record</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📋</span> Allocation Summary</div>
+          <div class="bar-group mb-16">
+            <div class="bar-item"><div class="bar-label">Ward 1</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--teal)"></div></div><div class="bar-val">100%</div></div>
+            <div class="bar-item"><div class="bar-label">Ward 2</div><div class="bar-track"><div class="bar-fill" style="width:97%;background:var(--sky)"></div></div><div class="bar-val">97%</div></div>
+            <div class="bar-item"><div class="bar-label">Ward 3</div><div class="bar-track"><div class="bar-fill" style="width:94%;background:var(--accent)"></div></div><div class="bar-val">94%</div></div>
+            <div class="bar-item"><div class="bar-label">Ward 4</div><div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--coral)"></div></div><div class="bar-val">88%</div></div>
+          </div>
+          <hr class="divider">
+          <div class="card-title"><span class="ct-icon">📦</span> Distribution Kit Status</div>
+          <div class="checklist">
+            <div class="check-item"><input type="checkbox" checked><div class="check-label">Election duty slips distributed</div><span class="badge badge-green">Done</span></div>
+            <div class="check-item"><input type="checkbox" checked><div class="check-label">Polling material kit issued</div><span class="badge badge-green">Done</span></div>
+            <div class="check-item"><input type="checkbox"><div class="check-label">Training attendance recorded</div><span class="badge badge-amber">Partial</span></div>
+            <div class="check-item"><input type="checkbox"><div class="check-label">Mock poll confirmation</div><span class="badge badge-red">Pending</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 03: POLLING STATION ===== -->
+  <div class="page" id="page-polling-station">
+    <div class="topbar">
+      <div><div class="page-title">Polling Station Management</div><div class="page-sub">Station details, geo-mapping & facility verification</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 03</span><button class="btn btn-ghost">⬇ Station List</button><button class="btn btn-primary">+ Add Station</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">642</div><div class="stat-lbl">Total Stations</div></div>
+        <div class="stat"><div class="stat-val">587</div><div class="stat-lbl">AMF Verified</div><div class="stat-badge up">91.4%</div></div>
+        <div class="stat"><div class="stat-val">34</div><div class="stat-lbl">Critical Areas</div><div class="stat-badge down">Extra Force</div></div>
+        <div class="stat"><div class="stat-val">21</div><div class="stat-lbl">Vulnerable Booths</div><div class="stat-badge down">Flagged</div></div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <div class="search-bar"><span class="search-icon">🔍</span><input type="text" placeholder="Search station by name, sector, booth no…"><select style="width:120px"><option>All Wards</option><option>Ward 1</option><option>Ward 2</option></select></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Booth No.</th><th>Station Name</th><th>Ward</th><th>Voters</th><th>AMF</th><th>Sensitivity</th></tr></thead>
+              <tbody>
+                <tr><td class="font-mono">001</td><td>Govt. School, Sec 12</td><td>Ward 1</td><td>1,247</td><td><span class="badge badge-green">✓</span></td><td><span class="badge badge-muted">Normal</span></td></tr>
+                <tr><td class="font-mono">002</td><td>Community Hall, Sec 15</td><td>Ward 1</td><td>982</td><td><span class="badge badge-green">✓</span></td><td><span class="badge badge-amber">Sensitive</span></td></tr>
+                <tr><td class="font-mono">003</td><td>Panchayat Bhawan, Sec 22</td><td>Ward 2</td><td>1,104</td><td><span class="badge badge-red">✗</span></td><td><span class="badge badge-red">Critical</span></td></tr>
+                <tr><td class="font-mono">004</td><td>DAV Public School, Sec 8</td><td>Ward 3</td><td>1,380</td><td><span class="badge badge-green">✓</span></td><td><span class="badge badge-muted">Normal</span></td></tr>
+                <tr><td class="font-mono">005</td><td>Municipal Office, Sec 17</td><td>Ward 4</td><td>764</td><td><span class="badge badge-amber">Part.</span></td><td><span class="badge badge-amber">Sensitive</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🗺</span> Station Map</div>
+          <div class="map-placeholder">
+            <div class="map-grid"></div>
+            <div style="z-index:1;text-align:center"><div style="font-size:28px">🗺</div><div>Polling Station Geo-map</div><div style="font-size:11px;margin-top:4px">Click a station to view details</div></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:12px;font-size:11px">
+            <span><span class="dot dot-green"></span>AMF Verified</span>
+            <span><span class="dot dot-amber"></span>Partial</span>
+            <span><span class="dot dot-red"></span>Not Verified</span>
+            <span><span class="dot dot-sky"></span>Critical</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 04: ELECTORAL ROLLS ===== -->
+  <div class="page" id="page-rolls">
+    <div class="topbar">
+      <div><div class="page-title">Electoral Rolls & Voter Slips</div><div class="page-sub">Search, print & manage voter records</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 04</span><button class="btn btn-ghost">🖨 Bulk Print</button><button class="btn btn-primary">⬇ Download Roll</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">6,59,805</div><div class="stat-lbl">Total Voters</div></div>
+        <div class="stat"><div class="stat-val">3,41,544</div><div class="stat-lbl">Male</div></div>
+        <div class="stat"><div class="stat-val">3,18,226</div><div class="stat-lbl">Female</div></div>
+        <div class="stat"><div class="stat-val">35</div><div class="stat-lbl">Third Gender</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🔍</span> Voter Search</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Search By</label><select><option>EPIC Number</option><option>Name</option><option>Mobile Number</option><option>Aadhaar (last 4 digits)</option></select></div>
+            <div class="form-group"><label>Search Value</label><input type="text" placeholder="Enter EPIC / Name / Mobile…"></div>
+            <div class="form-row">
+              <div class="form-group"><label>Ward / AC</label><select><option>All</option><option>Ward 1</option><option>Ward 2</option></select></div>
+              <div class="form-group"><label>Part No.</label><input type="number" placeholder="Part #"></div>
+            </div>
+            <button class="btn btn-primary">Search Voter</button>
+          </div>
+          <hr class="divider">
+          <div class="card-title" style="margin-bottom:10px"><span class="ct-icon">👤</span> Voter Record</div>
+          <div class="postal-card" style="flex-direction:column;align-items:flex-start;gap:8px">
+            <div style="display:flex;align-items:center;gap:12px;width:100%">
+              <div class="avatar" style="width:40px;height:40px;font-size:13px">RS</div>
+              <div><div style="font-weight:600;font-size:14px">Rajinder Singh</div><div style="font-size:11px;color:var(--text3)">EPIC: CHD/01/2024/000847</div></div>
+              <span class="badge badge-green" style="margin-left:auto">Enrolled</span>
+            </div>
+            <div class="form-row-3 w-full" style="margin-top:4px;gap:8px">
+              <div><div style="font-size:9px;color:var(--text3);text-transform:uppercase">Age / Gender</div><div style="font-size:12px;margin-top:2px">42 / Male</div></div>
+              <div><div style="font-size:9px;color:var(--text3);text-transform:uppercase">Booth</div><div style="font-size:12px;margin-top:2px">Booth 12, Ward 2</div></div>
+              <div><div style="font-size:9px;color:var(--text3);text-transform:uppercase">Part No.</div><div style="font-size:12px;margin-top:2px">Part 8, Sl. 247</div></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">🖨 Print Slip</button><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">✏ Edit</button><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">📧 Send SMS</button></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🖨</span> Bulk Voter Slip Generator</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Select Ward / AC</label><select><option>-- Select Ward --</option><option>Ward 1 – Sector 1-10</option><option>Ward 2 – Sector 11-20</option></select></div>
+            <div class="form-row">
+              <div class="form-group"><label>From Part No.</label><input type="number" placeholder="1"></div>
+              <div class="form-group"><label>To Part No.</label><input type="number" placeholder="50"></div>
+            </div>
+            <div class="form-group"><label>Slip Language</label><select><option>English + Hindi</option><option>English Only</option><option>Hindi Only</option><option>Punjabi + English</option></select></div>
+            <div class="form-group"><label>Print Format</label><select><option>A4 (4 per page)</option><option>A5 (2 per page)</option><option>Individual Slip</option></select></div>
+            <button class="btn btn-primary">🖨 Generate Slips (PDF)</button>
+          </div>
+          <hr class="divider">
+          <div class="card-title"><span class="ct-icon">📊</span> Roll Statistics</div>
+          <div class="bar-group">
+            <div class="bar-item"><div class="bar-label">18-25 yrs</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--sky)"></div></div><div class="bar-val">18%</div></div>
+            <div class="bar-item"><div class="bar-label">26-40 yrs</div><div class="bar-track"><div class="bar-fill" style="width:34%;background:var(--teal)"></div></div><div class="bar-val">34%</div></div>
+            <div class="bar-item"><div class="bar-label">41-60 yrs</div><div class="bar-track"><div class="bar-fill" style="width:32%;background:var(--accent)"></div></div><div class="bar-val">32%</div></div>
+            <div class="bar-item"><div class="bar-label">60+ yrs</div><div class="bar-track"><div class="bar-fill" style="width:16%;background:var(--coral)"></div></div><div class="bar-val">16%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 05: COMPLAINTS ===== -->
+  <div class="page" id="page-complaints">
+    <div class="topbar">
+      <div><div class="page-title">Online Complaints Redressal</div><div class="page-sub">Receive, track and resolve election-related complaints</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 05</span><button class="btn btn-primary">+ New Complaint</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">127</div><div class="stat-lbl">Total Complaints</div></div>
+        <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">Pending</div><div class="stat-badge down">Action Required</div></div>
+        <div class="stat"><div class="stat-val">118</div><div class="stat-lbl">Resolved</div><div class="stat-badge up">93%</div></div>
+        <div class="stat"><div class="stat-val">4.2 hrs</div><div class="stat-lbl">Avg. Resolution Time</div><div class="stat-badge up">SLA Met</div></div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <div class="tabs">
+            <div class="tab active">All</div><div class="tab">Pending</div><div class="tab">In Progress</div><div class="tab">Resolved</div>
+          </div>
+          <div class="complaint-card">
+            <div class="complaint-header"><div><div class="font-mono" style="font-size:10px;color:var(--accent)">CHD-0291</div><div style="font-size:13px;font-weight:500;margin-top:3px">Voter name missing from electoral roll</div></div><span class="badge badge-red">Pending</span></div>
+            <div class="complaint-text">Resident of Sector 22-B claims their name was removed from Part 12 despite being an enrolled voter since 2019. EPIC card available.</div>
+            <div class="complaint-meta"><span>📅 Today, 09:12 AM</span><span>📍 Sector 22, Ward 3</span><span>👤 Harpreet Kaur</span></div>
+            <div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-primary" style="font-size:11px;padding:5px 12px">Assign Officer</button><button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">View Details</button></div>
+          </div>
+          <div class="complaint-card">
+            <div class="complaint-header"><div><div class="font-mono" style="font-size:10px;color:var(--accent)">CHD-0290</div><div style="font-size:13px;font-weight:500;margin-top:3px">Polling booth inaccessible for wheelchair users</div></div><span class="badge badge-amber">In Progress</span></div>
+            <div class="complaint-text">Booth 7, Sector 15 does not have a ramp. PWD voter unable to access the booth. Complaint filed by disability rights organization.</div>
+            <div class="complaint-meta"><span>📅 Yesterday, 3:40 PM</span><span>📍 Sector 15, Ward 2</span><span>👤 Suresh Mehta</span></div>
+          </div>
+          <div class="complaint-card">
+            <div class="complaint-header"><div><div class="font-mono" style="font-size:10px;color:var(--accent)">CHD-0289</div><div style="font-size:13px;font-weight:500;margin-top:3px">Political advertisement near polling station</div></div><span class="badge badge-green">Resolved</span></div>
+            <div class="complaint-text">Banner of political party found within 200m of Booth 23. MCC violation reported. Removed within 2 hours of complaint.</div>
+            <div class="complaint-meta"><span>📅 2 days ago</span><span>📍 Sector 8, Ward 1</span><span>👤 Anon</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📝</span> File New Complaint</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Complainant Name</label><input type="text" placeholder="Full Name"></div>
+            <div class="form-row">
+              <div class="form-group"><label>Mobile</label><input type="tel" placeholder="Mobile No."></div>
+              <div class="form-group"><label>EPIC (optional)</label><input type="text" placeholder="Voter ID Card No."></div>
+            </div>
+            <div class="form-group"><label>Complaint Category</label><select><option>-- Select --</option><option>Electoral Roll Issue</option><option>MCC Violation</option><option>Booth Accessibility</option><option>Officer Misconduct</option><option>EVM Complaint</option><option>Other</option></select></div>
+            <div class="form-row">
+              <div class="form-group"><label>Ward / AC</label><select><option>-- Select --</option><option>Ward 1</option><option>Ward 2</option></select></div>
+              <div class="form-group"><label>Booth No.</label><input type="text" placeholder="Booth #"></div>
+            </div>
+            <div class="form-group"><label>Complaint Details</label><textarea placeholder="Describe the issue in detail…"></textarea></div>
+            <div class="form-group"><label>Supporting Document</label><input type="file" style="padding:7px 10px"></div>
+            <button class="btn btn-primary">Submit Complaint</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 06: PERMISSIONS ===== -->
+  <div class="page" id="page-permissions">
+    <div class="topbar">
+      <div><div class="page-title">Online Permission Redressal</div><div class="page-sub">Apply, review and approve election-period permissions</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 06</span><button class="btn btn-primary">+ Apply Permission</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">84</div><div class="stat-lbl">Applications</div></div>
+        <div class="stat"><div class="stat-val">12</div><div class="stat-lbl">Pending Review</div><div class="stat-badge down">Urgent</div></div>
+        <div class="stat"><div class="stat-val">67</div><div class="stat-lbl">Approved</div><div class="stat-badge up">79.8%</div></div>
+        <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Rejected</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📋</span> Permission Applications</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>App. ID</th><th>Type</th><th>Applicant</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td class="font-mono text-accent">PRM-084</td><td>Political Rally</td><td>Party ABC</td><td>Today</td><td><span class="badge badge-amber">Pending</span></td><td><button class="btn btn-primary" style="padding:4px 10px;font-size:11px">Review</button></td></tr>
+                <tr><td class="font-mono text-accent">PRM-083</td><td>Road Show</td><td>Candidate X</td><td>Yesterday</td><td><span class="badge badge-green">Approved</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">View</button></td></tr>
+                <tr><td class="font-mono text-accent">PRM-082</td><td>Loudspeaker</td><td>Party DEF</td><td>2 days ago</td><td><span class="badge badge-red">Rejected</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">View</button></td></tr>
+                <tr><td class="font-mono text-accent">PRM-081</td><td>Public Meeting</td><td>IND Candidate</td><td>3 days ago</td><td><span class="badge badge-green">Approved</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">View</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🔑</span> New Permission Request</div>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="form-group"><label>Applicant / Party Name</label><input type="text" placeholder="Party / Candidate Name"></div>
+              <div class="form-group"><label>Permission Type</label><select><option>Rally</option><option>Road Show</option><option>Loudspeaker</option><option>Public Meeting</option><option>Helicopter Landing</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Proposed Date</label><input type="date"></div>
+              <div class="form-group"><label>Proposed Time</label><input type="time"></div>
+            </div>
+            <div class="form-group"><label>Location / Venue</label><input type="text" placeholder="Full address or GPS coordinates"></div>
+            <div class="form-group"><label>Expected Crowd Size</label><select><option>< 500</option><option>500-2000</option><option>2000-10000</option><option>> 10000</option></select></div>
+            <div class="form-group"><label>Additional Details</label><textarea placeholder="Route, sound requirements, security…"></textarea></div>
+            <button class="btn btn-primary">Submit Application</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 07: NOMINATIONS ===== -->
+  <div class="page" id="page-nominations">
+    <div class="topbar">
+      <div><div class="page-title">Nominations & Candidate Management</div><div class="page-sub">Nominations, scrutiny, withdrawals & final candidate list</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 07</span><button class="btn btn-ghost">⬇ Final List PDF</button><button class="btn btn-primary">+ New Nomination</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">53</div><div class="stat-lbl">Nominations Filed</div></div>
+        <div class="stat"><div class="stat-val">47</div><div class="stat-lbl">Valid After Scrutiny</div><div class="stat-badge up">88.7%</div></div>
+        <div class="stat"><div class="stat-val">6</div><div class="stat-lbl">Withdrawn</div><div class="stat-badge neutral">Till Deadline</div></div>
+        <div class="stat"><div class="stat-val">41</div><div class="stat-lbl">Contesting</div><div class="stat-badge up">Final List</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🏆</span> Final Contesting Candidates</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Candidate</th><th>Party</th><th>Ward / AC</th><th>Symbol</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td class="font-mono">001</td><td><strong>Ramesh Sharma</strong></td><td>Party A</td><td>Ward 1</td><td>🪷</td><td><span class="badge badge-green">Contesting</span></td></tr>
+                <tr><td class="font-mono">002</td><td><strong>Priya Verma</strong></td><td>Party B</td><td>Ward 1</td><td>🤚</td><td><span class="badge badge-green">Contesting</span></td></tr>
+                <tr><td class="font-mono">003</td><td><strong>Gurpreet Singh</strong></td><td>INC</td><td>Ward 2</td><td>✋</td><td><span class="badge badge-green">Contesting</span></td></tr>
+                <tr><td class="font-mono">004</td><td><strong>Sunita Rani</strong></td><td>Independent</td><td>Ward 2</td><td>🌟</td><td><span class="badge badge-red">Withdrawn</span></td></tr>
+                <tr><td class="font-mono">005</td><td><strong>Anil Kumar</strong></td><td>AAP</td><td>Ward 3</td><td>🧹</td><td><span class="badge badge-green">Contesting</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📝</span> File Nomination</div>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="form-group"><label>Candidate Name</label><input type="text" placeholder="As per official ID"></div>
+              <div class="form-group"><label>Father / Spouse Name</label><input type="text" placeholder="Name"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Party Affiliation</label><select><option>Independent</option><option>Party A</option><option>Party B</option><option>INC</option><option>BJP</option><option>AAP</option></select></div>
+              <div class="form-group"><label>Ward / AC</label><select><option>-- Select --</option><option>Ward 1</option><option>Ward 2</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Nomination Date</label><input type="date"></div>
+              <div class="form-group"><label>Scrutiny Status</label><select><option>Pending</option><option>Valid</option><option>Rejected</option></select></div>
+            </div>
+            <div class="form-group"><label>Affidavit Upload</label><input type="file" style="padding:7px 10px"></div>
+            <button class="btn btn-primary">Submit Nomination</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 08: VOTER TURNOUT ===== -->
+  <div class="page" id="page-turnout">
+    <div class="topbar">
+      <div><div class="page-title">Voter Turnout Capturing</div><div class="page-sub">Live hourly reporting across all polling stations</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 08</span><span class="live-dot">LIVE</span><button class="btn btn-ghost">⬇ Report</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">62.4%</div><div class="stat-lbl">Overall Turnout</div><div class="stat-badge up">+2.1% vs last hour</div></div>
+        <div class="stat"><div class="stat-val">5,58,291</div><div class="stat-lbl">Votes Cast (est.)</div></div>
+        <div class="stat"><div class="stat-val">2:40 PM</div><div class="stat-lbl">Last Updated</div><div class="stat-badge neutral">Auto-refresh 15m</div></div>
+        <div class="stat"><div class="stat-val">597</div><div class="stat-lbl">Active Booths</div><div class="stat-badge up">93% Reporting</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📊</span> Hourly Turnout Trend</div>
+          <div style="padding:10px 0">
+            <div class="bar-group">
+              <div class="bar-item"><div class="bar-label">7–8 AM</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--sky)"></div></div><div class="bar-val">8.2%</div></div>
+              <div class="bar-item"><div class="bar-label">8–9 AM</div><div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--teal)"></div></div><div class="bar-val">19%</div></div>
+              <div class="bar-item"><div class="bar-label">9–11 AM</div><div class="bar-track"><div class="bar-fill" style="width:36%;background:var(--teal)"></div></div><div class="bar-val">36%</div></div>
+              <div class="bar-item"><div class="bar-label">11 AM–1 PM</div><div class="bar-track"><div class="bar-fill" style="width:51%;background:var(--accent)"></div></div><div class="bar-val">51%</div></div>
+              <div class="bar-item"><div class="bar-label">1–3 PM</div><div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--accent)"></div></div><div class="bar-val">62%</div></div>
+              <div class="bar-item"><div class="bar-label">3–5 PM</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:rgba(0,0,0,0.2)"></div></div><div class="bar-val">—</div></div>
+            </div>
+          </div>
+          <hr class="divider">
+          <div class="card-title"><span class="ct-icon">🗺</span> Ward-wise Turnout</div>
+          <div class="bar-group">
+            <div class="bar-item"><div class="bar-label">Ward 1</div><div class="bar-track"><div class="bar-fill" style="width:71%;background:var(--teal)"></div></div><div class="bar-val">71%</div></div>
+            <div class="bar-item"><div class="bar-label">Ward 2</div><div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--sky)"></div></div><div class="bar-val">58%</div></div>
+            <div class="bar-item"><div class="bar-label">Ward 3</div><div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--accent)"></div></div><div class="bar-val">65%</div></div>
+            <div class="bar-item"><div class="bar-label">Ward 4</div><div class="bar-track"><div class="bar-fill" style="width:48%;background:var(--coral)"></div></div><div class="bar-val">48%</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📥</span> Enter Turnout Data</div>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="form-group"><label>Ward / AC</label><select><option>-- Select --</option><option>Ward 1</option><option>Ward 2</option><option>Ward 3</option><option>Ward 4</option></select></div>
+              <div class="form-group"><label>Booth Number</label><input type="number" placeholder="e.g. 34"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Reporting Time</label><select><option>7–9 AM</option><option>9–11 AM</option><option>11 AM–1 PM</option><option>1–3 PM</option><option>3–5 PM</option><option>Final (6 PM)</option></select></div>
+              <div class="form-group"><label>Votes Cast</label><input type="number" placeholder="No. of votes"></div>
+            </div>
+            <div class="form-group"><label>Total Enrolled Voters at Booth</label><input type="number" placeholder="Total voters"></div>
+            <div class="form-group"><label>Events / Remarks</label><select><option>Normal Voting</option><option>EVM Technical Issue</option><option>Law & Order Incident</option><option>Mock Poll Done</option><option>Booth Seized</option></select></div>
+            <button class="btn btn-primary">Submit Turnout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 09: RESULTS ===== -->
+  <div class="page" id="page-results">
+    <div class="topbar">
+      <div><div class="page-title">Online Results – Form 17 & 18</div><div class="page-sub">Live vote counting & result declaration</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 09</span><span class="live-dot">COUNTING LIVE</span><button class="btn btn-ghost">Form 17</button><button class="btn btn-ghost">Form 18</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">6,59,805</div><div class="stat-lbl">Total Votes</div></div>
+        <div class="stat"><div class="stat-val">62.4%</div><div class="stat-lbl">Turnout</div><div class="stat-badge up">Valid Votes: 5,54,802</div></div>
+        <div class="stat"><div class="stat-val">3,489</div><div class="stat-lbl">NOTA Votes</div></div>
+        <div class="stat"><div class="stat-val">Ward 1</div><div class="stat-lbl">Leading Ward</div><div class="stat-badge up">71% Turnout</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🏆</span> Live Result – Ward 1</div>
+          <div style="margin-bottom:16px">
+            <div class="result-candidate">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(46,201,160,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🏅</div>
+              <div class="candidate-info"><div class="candidate-name">Ramesh Sharma</div><div class="candidate-party">Party A · 🪷</div></div>
+              <div class="result-votes">1,24,831</div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:52%;background:var(--teal)"></div></div>
+          </div>
+          <div style="margin-bottom:16px">
+            <div class="result-candidate">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(74,179,232,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🤚</div>
+              <div class="candidate-info"><div class="candidate-name">Priya Verma</div><div class="candidate-party">Party B · 🤚</div></div>
+              <div class="result-votes">98,442</div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:41%;background:var(--sky)"></div></div>
+          </div>
+          <div style="margin-bottom:16px">
+            <div class="result-candidate">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(37,99,235,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">✋</div>
+              <div class="candidate-info"><div class="candidate-name">Gurpreet Singh</div><div class="candidate-party">INC · ✋</div></div>
+              <div class="result-votes">17,204</div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:7%;background:var(--accent)"></div></div>
+          </div>
+          <div style="background:rgba(46,201,160,0.08);border:1px solid rgba(46,201,160,0.2);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:12px">
+            <div style="font-size:20px">🏅</div>
+            <div><div style="font-size:12px;color:var(--text3)">Leading by</div><div style="font-family:'Public Sans',sans-serif;font-size:18px;font-weight:700;color:var(--teal)">26,389 votes</div></div>
+            <div style="margin-left:auto;text-align:right"><div style="font-size:10px;color:var(--text3)">Rounds counted</div><div style="font-size:16px;font-weight:600">14 / 20</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📊</span> Result Entry – Form 17</div>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="form-group"><label>Ward / AC</label><select><option>Ward 1</option><option>Ward 2</option><option>Ward 3</option></select></div>
+              <div class="form-group"><label>Counting Round</label><select><option>Round 1</option><option>Round 2</option><option>Round 14</option><option>Round 15</option></select></div>
+            </div>
+            <div class="form-group"><label>Candidate Name</label><select><option>Ramesh Sharma</option><option>Priya Verma</option><option>Gurpreet Singh</option></select></div>
+            <div class="form-row">
+              <div class="form-group"><label>Votes in This Round</label><input type="number" placeholder="Count"></div>
+              <div class="form-group"><label>Cumulative Votes</label><input type="number" placeholder="Total so far"></div>
+            </div>
+            <div class="form-group"><label>Rejected Ballots (if any)</label><input type="number" placeholder="0"></div>
+            <button class="btn btn-primary">Submit Round Data</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 10: POSTAL BALLOT ===== -->
+  <div class="page" id="page-postal">
+    <div class="topbar">
+      <div><div class="page-title">Postal Ballot Distribution</div><div class="page-sub">Issue, track and receive postal ballots</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 10</span><button class="btn btn-ghost">⬇ Register</button><button class="btn btn-primary">+ Issue Ballot</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">1,840</div><div class="stat-lbl">Ballots Issued</div></div>
+        <div class="stat"><div class="stat-val">1,204</div><div class="stat-lbl">Returned</div><div class="stat-badge up">65.4%</div></div>
+        <div class="stat"><div class="stat-val">636</div><div class="stat-lbl">Pending Return</div><div class="stat-badge down">Deadline: 3 days</div></div>
+        <div class="stat"><div class="stat-val">48</div><div class="stat-lbl">Rejected Ballots</div><div class="stat-badge down">2.6%</div></div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <div class="card-title" style="margin-bottom:12px"><span class="ct-icon">📬</span> Recent Postal Ballot Activity</div>
+          <div class="postal-card"><div class="avatar">SA</div><div><div style="font-weight:500">Sukhvir Singh Arora</div><div style="font-size:11px;color:var(--text3)">Service Voter · Army · Ward 2</div></div><span class="badge badge-green" style="margin-left:auto">Received</span></div>
+          <div class="postal-card"><div class="avatar">MP</div><div><div style="font-weight:500">Meena Patel</div><div style="font-size:11px;color:var(--text3)">85+ Voter · Ward 1 · Part 4</div></div><span class="badge badge-amber" style="margin-left:auto">Dispatched</span></div>
+          <div class="postal-card"><div class="avatar">RK</div><div><div style="font-weight:500">Ravinder Kumar</div><div style="font-size:11px;color:var(--text3)">PWD Voter · Ward 3 · Part 12</div></div><span class="badge badge-red" style="margin-left:auto">Pending</span></div>
+          <div class="postal-card"><div class="avatar">AJ</div><div><div style="font-weight:500">Amarjit Joshi</div><div style="font-size:11px;color:var(--text3)">Absentee · Ward 4 · Part 7</div></div><span class="badge badge-red" style="margin-left:auto">Rejected</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">✉</span> Issue Postal Ballot</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Voter EPIC Number</label><input type="text" placeholder="Search voter…"></div>
+            <div class="form-group"><label>Category</label><select><option>Service Voter</option><option>85+ Senior</option><option>PWD (Disabled)</option><option>Essential Services</option><option>Absentee Voter</option></select></div>
+            <div class="form-row">
+              <div class="form-group"><label>Issue Date</label><input type="date"></div>
+              <div class="form-group"><label>Ballot Serial No.</label><input type="text" placeholder="Auto-generated"></div>
+            </div>
+            <div class="form-group"><label>Dispatch Method</label><select><option>Speed Post</option><option>Hand Delivery</option><option>Home Visit</option></select></div>
+            <div class="form-group"><label>Return Deadline</label><input type="date"></div>
+            <button class="btn btn-primary">Issue Ballot</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 11: MCC REPORTS ===== -->
+  <div class="page" id="page-mcc">
+    <div class="topbar">
+      <div><div class="page-title">Daily MCC Reports</div><div class="page-sub">Online submission by departments – Model Code of Conduct</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 11</span><button class="btn btn-ghost">📊 Consolidated</button><button class="btn btn-primary">+ Submit Report</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">18</div><div class="stat-lbl">Departments</div></div>
+        <div class="stat"><div class="stat-val">14</div><div class="stat-lbl">Reports Today</div><div class="stat-badge up">77.8%</div></div>
+        <div class="stat"><div class="stat-val">4</div><div class="stat-lbl">Pending Today</div><div class="stat-badge down">Overdue</div></div>
+        <div class="stat"><div class="stat-val">6</div><div class="stat-lbl">MCC Violations</div><div class="stat-badge down">This Week</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🛡</span> Department Submission Status</div>
+          <div class="checklist">
+            <div class="check-item"><input type="checkbox" checked><div class="check-label">Revenue Department</div><span class="badge badge-green">Submitted 9:12 AM</span></div>
+            <div class="check-item"><input type="checkbox" checked><div class="check-label">Police Department</div><span class="badge badge-green">Submitted 8:45 AM</span></div>
+            <div class="check-item"><input type="checkbox" checked><div class="check-label">Education Department</div><span class="badge badge-green">Submitted 10:30 AM</span></div>
+            <div class="check-item"><input type="checkbox"><div class="check-label">Health Department</div><span class="badge badge-amber">Reminder Sent</span></div>
+            <div class="check-item"><input type="checkbox" checked><div class="check-label">Municipal Corporation</div><span class="badge badge-green">Submitted 9:55 AM</span></div>
+            <div class="check-item"><input type="checkbox"><div class="check-label">Transport Department</div><span class="badge badge-red">Not Submitted</span></div>
+            <div class="check-item"><input type="checkbox"><div class="check-label">Social Welfare Dept.</div><span class="badge badge-red">Not Submitted</span></div>
+            <div class="check-item"><input type="checkbox" checked><div class="check-label">PWD / Infrastructure</div><span class="badge badge-green">Submitted 11:20 AM</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📋</span> Submit Daily MCC Report</div>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="form-group"><label>Department</label><select><option>-- Select --</option><option>Revenue</option><option>Police</option><option>Health</option><option>Education</option></select></div>
+              <div class="form-group"><label>Report Date</label><input type="date"></div>
+            </div>
+            <div class="form-group"><label>MCC Violations Observed</label><select><option>None</option><option>Political Advertisement</option><option>Distribution of Money/Gifts</option><option>Voter Intimidation</option><option>Other</option></select></div>
+            <div class="form-group"><label>Action Taken</label><textarea placeholder="Describe the action or steps taken…"></textarea></div>
+            <div class="form-group"><label>Upload Evidence / Report</label><input type="file" style="padding:7px 10px"></div>
+            <div class="form-group"><label>Officer Signature (Digital)</label><input type="text" placeholder="Name & Designation of Submitting Officer"></div>
+            <button class="btn btn-primary">Submit MCC Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 12: VOTER SLIP ===== -->
+  <div class="page" id="page-voter-slip">
+    <div class="topbar">
+      <div><div class="page-title">Voter Slip Distribution & Dashboard</div><div class="page-sub">Track distribution entry and completion by zone</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 12</span><button class="btn btn-ghost">⬇ Report</button><button class="btn btn-primary">+ Entry</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">6,59,805</div><div class="stat-lbl">Total Slips</div></div>
+        <div class="stat"><div class="stat-val">5,28,410</div><div class="stat-lbl">Distributed</div><div class="stat-badge up">81.4%</div></div>
+        <div class="stat"><div class="stat-val">1,29,548</div><div class="stat-lbl">Pending</div><div class="stat-badge down">18.6%</div></div>
+        <div class="stat"><div class="stat-val">1,847</div><div class="stat-lbl">BLAs Active</div></div>
+      </div>
+      <div class="card mb-16">
+        <div class="card-title"><span class="ct-icon">📊</span> Ward-wise Distribution Progress</div>
+        <div class="bar-group">
+          <div class="bar-item"><div class="bar-label">Ward 1</div><div class="bar-track"><div class="bar-fill" style="width:94%;background:var(--teal)"></div></div><div class="bar-val">94%</div></div>
+          <div class="bar-item"><div class="bar-label">Ward 2</div><div class="bar-track"><div class="bar-fill" style="width:82%;background:var(--sky)"></div></div><div class="bar-val">82%</div></div>
+          <div class="bar-item"><div class="bar-label">Ward 3</div><div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--accent)"></div></div><div class="bar-val">78%</div></div>
+          <div class="bar-item"><div class="bar-label">Ward 4</div><div class="bar-track"><div class="bar-fill" style="width:67%;background:var(--coral)"></div></div><div class="bar-val">67%</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="ct-icon">📥</span> Distribution Entry</div>
+        <div class="form-row-3">
+          <div class="form-group"><label>Ward</label><select><option>-- Select --</option><option>Ward 1</option><option>Ward 2</option></select></div>
+          <div class="form-group"><label>Part No.</label><input type="number" placeholder="Part #"></div>
+          <div class="form-group"><label>BLA Name / ID</label><input type="text" placeholder="Booth Level Agent"></div>
+        </div>
+        <div class="form-row mt-12">
+          <div class="form-group"><label>Slips Distributed Today</label><input type="number" placeholder="Count"></div>
+          <div class="form-group"><label>Pending / Returned</label><input type="number" placeholder="Count"></div>
+          <div class="form-group"><label>Date</label><input type="date"></div>
+        </div>
+        <button class="btn btn-primary mt-12">Save Entry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 13: RANDOMIZATION ===== -->
+  <div class="page" id="page-randomization">
+    <div class="topbar">
+      <div><div class="page-title">Randomization of Parties & EVMs</div><div class="page-sub">Transparent draw process with audit trail</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 13</span><button class="btn btn-ghost">📄 Audit Log</button><button class="btn btn-primary">▶ Start Randomization</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">2</div><div class="stat-lbl">Randomization Rounds</div><div class="stat-badge up">Completed</div></div>
+        <div class="stat"><div class="stat-val">R1 Done</div><div class="stat-lbl">Party to Zone</div><div class="stat-badge up">14 Oct</div></div>
+        <div class="stat"><div class="stat-val">R2 Done</div><div class="stat-lbl">Party to Booth</div><div class="stat-badge up">17 Oct</div></div>
+        <div class="stat"><div class="stat-val">R3 Pending</div><div class="stat-lbl">EVM to Booth</div><div class="stat-badge amber">Election Day</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">🔀</span> Randomization Result – Round 2</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Booth No.</th><th>Presiding Officer</th><th>PO 1</th><th>PO 2</th><th>PO 3</th></tr></thead>
+              <tbody>
+                <tr><td class="font-mono">001</td><td>Suresh Kumar</td><td>Anita Sharma</td><td>Ravi Gupta</td><td>Meena Devi</td></tr>
+                <tr><td class="font-mono">002</td><td>Priya Nanda</td><td>Vikram Singh</td><td>Sunita Rani</td><td>Ajay Verma</td></tr>
+                <tr><td class="font-mono">003</td><td>Rajiv Mehta</td><td>Kavita Joshi</td><td>Dinesh Batra</td><td>Pooja Arora</td></tr>
+                <tr><td class="font-mono">004</td><td>Neha Kapoor</td><td>Harish Chand</td><td>Sonia Gupta</td><td>Manish Rao</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">⚙</span> Configure Randomization</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Randomization Round</label><select><option>Round 1 – Officer to Zone</option><option>Round 2 – Officer to Booth</option><option>Round 3 – EVM to Booth</option></select></div>
+            <div class="form-group"><label>Randomization Date</label><input type="date"></div>
+            <div class="form-group"><label>Seed / Reference Number</label><input type="text" placeholder="For audit reproducibility"></div>
+            <div class="form-group"><label>Observers Present</label><input type="text" placeholder="Names of election observers"></div>
+            <div style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);border-radius:var(--r);padding:12px;font-size:12px;color:var(--text2)">
+              ⚠ Randomization is irreversible once executed. Ensure all observers are present and process is video-recorded before proceeding.
+            </div>
+            <div style="display:flex;gap:10px">
+              <button class="btn btn-ghost" style="flex:1">Preview Draw</button>
+              <button class="btn btn-primary" style="flex:1">Execute Randomization</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 14: STATUTORY FORMS ===== -->
+  <div class="page" id="page-statutory">
+    <div class="topbar">
+      <div><div class="page-title">Statutory Forms Upload</div><div class="page-sub">SEC statutory forms repository – upload, version & download</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 14</span><button class="btn btn-primary">⬆ Upload Form</button></div>
+    </div>
+    <div class="page-content">
+      <div class="search-bar"><span class="search-icon">🔍</span><input type="text" placeholder="Search forms by name, number or category…"><select style="width:160px"><option>All Categories</option><option>Nomination</option><option>Counting</option><option>Results</option><option>Complaints</option></select></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Form No.</th><th>Form Name</th><th>Category</th><th>Version</th><th>Uploaded</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td class="font-mono text-accent">Form 1</td><td>Notice of Election</td><td>Nomination</td><td>v2.1</td><td>Oct 1, 2025</td><td><span class="badge badge-green">Active</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">⬇ PDF</button></td></tr>
+            <tr><td class="font-mono text-accent">Form 2A</td><td>Nomination Paper</td><td>Nomination</td><td>v3.0</td><td>Oct 1, 2025</td><td><span class="badge badge-green">Active</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">⬇ PDF</button></td></tr>
+            <tr><td class="font-mono text-accent">Form 7</td><td>Result Sheet</td><td>Counting</td><td>v1.4</td><td>Sep 28, 2025</td><td><span class="badge badge-green">Active</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">⬇ PDF</button></td></tr>
+            <tr><td class="font-mono text-accent">Form 17</td><td>Account of Votes Recorded</td><td>Counting</td><td>v2.0</td><td>Sep 28, 2025</td><td><span class="badge badge-green">Active</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">⬇ PDF</button></td></tr>
+            <tr><td class="font-mono text-accent">Form 18</td><td>Final Result Declaration</td><td>Results</td><td>v2.1</td><td>Sep 30, 2025</td><td><span class="badge badge-green">Active</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">⬇ PDF</button></td></tr>
+            <tr><td class="font-mono text-accent">Form 21E</td><td>Register of Postal Ballots</td><td>Postal</td><td>v1.2</td><td>Oct 2, 2025</td><td><span class="badge badge-amber">Draft</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">⬇ PDF</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 15: OBSERVER REPORTS ===== -->
+  <div class="page" id="page-observer">
+    <div class="topbar">
+      <div><div class="page-title">Observer Reports</div><div class="page-sub">Submit and review election observer field reports</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 15</span><button class="btn btn-ghost">⬇ Download All</button><button class="btn btn-primary">+ Submit Report</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">8</div><div class="stat-lbl">Deployed Observers</div></div>
+        <div class="stat"><div class="stat-val">34</div><div class="stat-lbl">Reports Filed</div></div>
+        <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">Issues Escalated</div><div class="stat-badge down">Action Needed</div></div>
+        <div class="stat"><div class="stat-val">4</div><div class="stat-lbl">Wards Covered</div></div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <div class="observer-card">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+              <div><div style="font-weight:600;font-size:13px">Observer – IAS Rajan Mehta</div><div style="font-size:11px;color:var(--text3)">Ward 1 · Submitted Today 11:20 AM</div></div>
+              <span class="badge badge-green">Normal</span>
+            </div>
+            <div style="font-size:12.5px;color:var(--text2);line-height:1.5;margin-bottom:8px">All booths in Ward 1 reporting smoothly. Turnout at 71% as of 2 PM. AMF facilities confirmed at all 160 booths. No MCC violations observed.</div>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">Full Report →</button>
+          </div>
+          <div class="observer-card">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+              <div><div style="font-weight:600;font-size:13px">Observer – IPS Kavita Sood</div><div style="font-size:11px;color:var(--text3)">Ward 3 · Submitted Today 10:05 AM</div></div>
+              <span class="badge badge-red">Issue Escalated</span>
+            </div>
+            <div style="font-size:12.5px;color:var(--text2);line-height:1.5;margin-bottom:8px">EVM malfunction at Booth 41, Sector 22. Replaced within 47 minutes. Delay of 1.5 hrs noted. Voter queue management needs improvement at 3 booths.</div>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 12px">Full Report →</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">👁</span> Submit Observer Report</div>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="form-group"><label>Observer Name</label><input type="text" placeholder="Full Name"></div>
+              <div class="form-group"><label>Designation</label><input type="text" placeholder="IAS / IPS / Other"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Ward / AC Assigned</label><select><option>Ward 1</option><option>Ward 2</option><option>Ward 3</option><option>Ward 4</option></select></div>
+              <div class="form-group"><label>Report Type</label><select><option>Daily Report</option><option>Incident Report</option><option>Counting Report</option><option>Final Summary</option></select></div>
+            </div>
+            <div class="form-group"><label>Overall Status</label><select><option>Normal</option><option>Minor Issues</option><option>Issue Escalated</option><option>Critical</option></select></div>
+            <div class="form-group"><label>Report Content</label><textarea style="min-height:100px" placeholder="Describe polling day observations, issues, actions…"></textarea></div>
+            <div class="form-group"><label>Attachments</label><input type="file" style="padding:7px 10px" multiple></div>
+            <button class="btn btn-primary">Submit Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 16: 85+ & PWD ===== -->
+  <div class="page" id="page-pwd">
+    <div class="topbar">
+      <div><div class="page-title">85+ Senior & PWD Facility</div><div class="page-sub">Home voting, pickup assistance & special arrangements</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 16</span><button class="btn btn-ghost">⬇ List</button><button class="btn btn-primary">+ Register</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">4,821</div><div class="stat-lbl">85+ Voters Registered</div></div>
+        <div class="stat"><div class="stat-val">12,347</div><div class="stat-lbl">PWD Voters</div></div>
+        <div class="stat"><div class="stat-val">2,104</div><div class="stat-lbl">Home Voting Requests</div><div class="stat-badge up">Approved</div></div>
+        <div class="stat"><div class="stat-val">487</div><div class="stat-lbl">Transport Arranged</div><div class="stat-badge up">Pickup</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">♿</span> PWD / 85+ Voter Registry</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Voter Name</th><th>EPIC</th><th>Category</th><th>Ward</th><th>Facility</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Kirpal Singh</td><td class="font-mono">CHD/01/0412</td><td><span class="badge badge-sky">85+</span></td><td>Ward 2</td><td>Home Voting</td><td><span class="badge badge-green">Arranged</span></td></tr>
+                <tr><td>Sumitra Devi</td><td class="font-mono">CHD/03/2847</td><td><span class="badge badge-amber">PWD</span></td><td>Ward 1</td><td>Wheelchair + Ramp</td><td><span class="badge badge-green">Ready</span></td></tr>
+                <tr><td>Mohan Lal</td><td class="font-mono">CHD/02/1091</td><td><span class="badge badge-sky">85+</span></td><td>Ward 3</td><td>Transport Pickup</td><td><span class="badge badge-amber">Pending</span></td></tr>
+                <tr><td>Ranjit Kaur</td><td class="font-mono">CHD/04/3312</td><td><span class="badge badge-amber">PWD</span></td><td>Ward 4</td><td>Postal Ballot</td><td><span class="badge badge-green">Issued</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📝</span> Register Special Facility Request</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Voter EPIC / Name</label><input type="text" placeholder="Search voter…"></div>
+            <div class="form-group"><label>Category</label><select><option>85+ Senior Citizen</option><option>PwD – Visually Impaired</option><option>PwD – Hearing Impaired</option><option>PwD – Mobility Impaired</option><option>Bedridden</option></select></div>
+            <div class="form-group"><label>Facility Required</label><select><option>Home Voting (Postal)</option><option>Wheelchair Assistance</option><option>Transport Pickup</option><option>Braille Ballot</option><option>Companion Permission</option></select></div>
+            <div class="form-group"><label>Special Notes</label><textarea placeholder="Medical conditions, address, contact…"></textarea></div>
+            <button class="btn btn-primary">Register & Arrange</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 17: AMF ===== -->
+  <div class="page" id="page-amf">
+    <div class="topbar">
+      <div><div class="page-title">Assured Minimum Facilities</div><div class="page-sub">Verify minimum required facilities at all polling stations</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 17</span><button class="btn btn-ghost">⬇ Compliance Report</button><button class="btn btn-primary">+ Update Facility</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">642</div><div class="stat-lbl">Total Stations</div></div>
+        <div class="stat"><div class="stat-val">587</div><div class="stat-lbl">Fully Compliant</div><div class="stat-badge up">91.4%</div></div>
+        <div class="stat"><div class="stat-val">43</div><div class="stat-lbl">Partial</div><div class="stat-badge amber">Action Needed</div></div>
+        <div class="stat"><div class="stat-val">12</div><div class="stat-lbl">Non-Compliant</div><div class="stat-badge down">Critical</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">✅</span> AMF Checklist – Booth 003, Sec 22</div>
+          <div class="checklist">
+            <div class="facility-item"><div style="font-size:12.5px;color:var(--text2)">Drinking Water</div><span class="badge badge-green">Available</span><input type="checkbox" checked style="width:15px;height:15px;accent-color:var(--accent)"></div>
+            <div class="facility-item"><div style="font-size:12.5px;color:var(--text2)">Toilet Facility</div><span class="badge badge-green">Available</span><input type="checkbox" checked style="width:15px;height:15px;accent-color:var(--accent)"></div>
+            <div class="facility-item"><div style="font-size:12.5px;color:var(--text2)">Ramp for PWD</div><span class="badge badge-red">Not Available</span><input type="checkbox" style="width:15px;height:15px;accent-color:var(--accent)"></div>
+            <div class="facility-item"><div style="font-size:12.5px;color:var(--text2)">Adequate Lighting</div><span class="badge badge-green">Available</span><input type="checkbox" checked style="width:15px;height:15px;accent-color:var(--accent)"></div>
+            <div class="facility-item"><div style="font-size:12.5px;color:var(--text2)">Shade / Shelter</div><span class="badge badge-amber">Partial</span><input type="checkbox" style="width:15px;height:15px;accent-color:var(--accent)"></div>
+            <div class="facility-item"><div style="font-size:12.5px;color:var(--text2)">First Aid Kit</div><span class="badge badge-green">Available</span><input type="checkbox" checked style="width:15px;height:15px;accent-color:var(--accent)"></div>
+            <div class="facility-item"><div style="font-size:12.5px;color:var(--text2)">Voter Queue Barriers</div><span class="badge badge-green">Available</span><input type="checkbox" checked style="width:15px;height:15px;accent-color:var(--accent)"></div>
+            <div class="facility-item"><div style="font-size:12.5px;color:var(--text2)">Signage & Directions</div><span class="badge badge-green">Available</span><input type="checkbox" checked style="width:15px;height:15px;accent-color:var(--accent)"></div>
+          </div>
+          <button class="btn btn-primary mt-12 w-full">Save Facility Status</button>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">📊</span> Facility-wise Compliance</div>
+          <div class="bar-group">
+            <div class="bar-item"><div class="bar-label">Water</div><div class="bar-track"><div class="bar-fill" style="width:99%;background:var(--teal)"></div></div><div class="bar-val">99%</div></div>
+            <div class="bar-item"><div class="bar-label">Toilets</div><div class="bar-track"><div class="bar-fill" style="width:96%;background:var(--teal)"></div></div><div class="bar-val">96%</div></div>
+            <div class="bar-item"><div class="bar-label">PWD Ramp</div><div class="bar-track"><div class="bar-fill" style="width:74%;background:var(--coral)"></div></div><div class="bar-val">74%</div></div>
+            <div class="bar-item"><div class="bar-label">Shade</div><div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--accent)"></div></div><div class="bar-val">88%</div></div>
+            <div class="bar-item"><div class="bar-label">Lighting</div><div class="bar-track"><div class="bar-fill" style="width:97%;background:var(--teal)"></div></div><div class="bar-val">97%</div></div>
+            <div class="bar-item"><div class="bar-label">First Aid</div><div class="bar-track"><div class="bar-fill" style="width:92%;background:var(--sky)"></div></div><div class="bar-val">92%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 18: AFFIDAVIT ===== -->
+  <div class="page" id="page-affidavit">
+    <div class="topbar">
+      <div><div class="page-title">Affidavit Analysis Reports</div><div class="page-sub">Candidate asset declarations, criminal records & comparative analysis</div></div>
+      <div class="topbar-actions"><span class="mod-tag">MODULE 18</span><button class="btn btn-ghost">⬇ Full Report</button><button class="btn btn-primary">⬆ Upload Affidavit</button></div>
+    </div>
+    <div class="page-content">
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">41</div><div class="stat-lbl">Affidavits Filed</div></div>
+        <div class="stat"><div class="stat-val">38</div><div class="stat-lbl">Uploaded & Analysed</div><div class="stat-badge up">92.7%</div></div>
+        <div class="stat"><div class="stat-val">7</div><div class="stat-lbl">Criminal Records</div><div class="stat-badge down">Disclosed</div></div>
+        <div class="stat"><div class="stat-val">₹4.2 Cr</div><div class="stat-lbl">Average Assets</div></div>
+      </div>
+      <div class="card mb-16">
+        <div class="card-title"><span class="ct-icon">📜</span> Candidate Affidavit Summary</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Candidate</th><th>Party</th><th>Ward</th><th>Assets Declared</th><th>Liabilities</th><th>Criminal Cases</th><th>Affidavit</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Ramesh Sharma</strong></td><td>Party A</td><td>Ward 1</td><td>₹8.4 Cr</td><td>₹1.2 Cr</td><td><span class="badge badge-green">None</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">View PDF</button></td></tr>
+              <tr><td><strong>Priya Verma</strong></td><td>Party B</td><td>Ward 1</td><td>₹3.1 Cr</td><td>₹0.4 Cr</td><td><span class="badge badge-red">2 Cases</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">View PDF</button></td></tr>
+              <tr><td><strong>Gurpreet Singh</strong></td><td>INC</td><td>Ward 2</td><td>₹1.8 Cr</td><td>₹0.2 Cr</td><td><span class="badge badge-green">None</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">View PDF</button></td></tr>
+              <tr><td><strong>Anil Kumar</strong></td><td>AAP</td><td>Ward 3</td><td>₹2.7 Cr</td><td>₹0.8 Cr</td><td><span class="badge badge-red">1 Case</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">View PDF</button></td></tr>
+              <tr><td><strong>Sanjay Dhull</strong></td><td>IND</td><td>Ward 4</td><td>₹0.9 Cr</td><td>₹0.1 Cr</td><td><span class="badge badge-green">None</span></td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">View PDF</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">💰</span> Asset Distribution</div>
+          <div class="bar-group">
+            <div class="bar-item"><div class="bar-label">> ₹10 Cr</div><div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--accent)"></div></div><div class="bar-val">5</div></div>
+            <div class="bar-item"><div class="bar-label">₹5-10 Cr</div><div class="bar-track"><div class="bar-fill" style="width:24%;background:var(--teal)"></div></div><div class="bar-val">10</div></div>
+            <div class="bar-item"><div class="bar-label">₹1-5 Cr</div><div class="bar-track"><div class="bar-fill" style="width:44%;background:var(--sky)"></div></div><div class="bar-val">18</div></div>
+            <div class="bar-item"><div class="bar-label">< ₹1 Cr</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:var(--coral)"></div></div><div class="bar-val">8</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-icon">⚖</span> Criminal Record Summary</div>
+          <div class="donut-legend">
+            <div class="legend-row"><div class="legend-color" style="background:var(--teal)"></div>No Criminal Cases<div class="legend-val">34</div></div>
+            <div class="legend-row"><div class="legend-color" style="background:var(--amber)"></div>1 Pending Case<div class="legend-val">4</div></div>
+            <div class="legend-row"><div class="legend-color" style="background:var(--coral)"></div>2+ Cases<div class="legend-val">3</div></div>
+            <div class="legend-row"><div class="legend-color" style="background:var(--sky)"></div>Convicted (Past)<div class="legend-val">0</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  event.currentTarget.classList.add('active');
+  document.getElementById('mainArea').scrollTo(0, 0);
+}
+
+// Tab switching
+document.querySelectorAll('.tabs').forEach(tabGroup => {
+  tabGroup.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+});
+</script>
+</body>
+</html>
